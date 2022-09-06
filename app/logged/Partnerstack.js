@@ -3,6 +3,7 @@ import { createStackNavigator } from "@react-navigation/stack"
 import { PanResponder } from "react-native";
 import Parner from "../screens/parners/Parner"
 import Chat from "../screens/parners/Chat"
+import Pagos from "../screens/parners/Pagos"
 
 const Stack = createStackNavigator();
 
@@ -25,6 +26,11 @@ export default function AnunciosStack() {
                 name="Chat"
                 component={Chat}
                 options={{ title: "Chat" }}
+            />
+            <Stack.Screen
+                name="Pagos"
+                component={Pagos}
+                options={{ title: "Suscribete" }}
             />
         </Stack.Navigator>
     )

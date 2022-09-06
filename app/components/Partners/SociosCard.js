@@ -14,6 +14,8 @@ import { deleteDoc, doc } from "firebase/firestore";
 import { useNavigation } from "@react-navigation/native";
 import { Entypo } from "@expo/vector-icons";
 import colors from "../../../colors";
+import SusPagos from "../../screens/parners/Pagos";
+
 
 export default function SocioCard({
   id,
@@ -40,51 +42,18 @@ export default function SocioCard({
 }) {
   const navigation = useNavigation();
 
-  const urlMensualIn = "https://buy.stripe.com/test_dR6dTF2f96nLdRSdQR";
-  const urlAnualIn = "https://buy.stripe.com/test_bIY4j53jddQd9BCbII";
-  const urlMensualFa = "https://buy.stripe.com/test_3csbLx6vpfYl7tubIK";
-  const urlAnualFa = "https://buy.stripe.com/test_bIY4j53jddQd9BCbII";
+  
 
-  console.log(tipoPago);
-  console.log(tipo);
+  // console.log(tipoPago);
+  // console.log(tipo);
 
-  const handledOnPress = async () => {
-    if (tipo === "Individual") {
-      if (tipoPago === "Mensual") {
-        const suscripcion = await Linking.openURL(urlMensualIn);
-        const revision =
-          "https://dashboard.stripe.com/payment-links/plink_1LV48cHdQdShCuDcMBQbcgfe";
-          console.log(revision); 
-          console.log(suscripcion);
-      }
-      if (tipoPago === "Anual") {
-        const suscripcion = await Linking.openURL(urlAnualIn);
-      }
-    }
-    if (tipo === "Familiar") {
-      if (tipoPago === "Mensual") {
-        const suscripcion = await Linking.openURL(urlMensualFa);
-        const revision =
-          "https://dashboard.stripe.com/payment-links/plink_1LV4GsHdQdShCuDcKRWkRdc9";
-      }
-      if (tipoPago === "Anual") {
-        const suscripcion = await Linking.openURL(urlAnualFa);
-      }
-    }
-    if (tipo === "Matrimonial") {
-      if (tipoPago === "Mensual") {
-        const suscripcion = await Linking.openURL(urlMensualIn);
-        const revision =
-          "https://dashboard.stripe.com/payment-links/plink_1LV48cHdQdShCuDcMBQbcgfe";
-          console.log(revision); 
-          console.log(suscripcion);
-      }
-      if (tipoPago === "Anual") {
-        const suscripcion = await Linking.openURL(urlAnualIn);
-      }
-    }
-
-    console.log(suscripcion);
+  const handledOnPress = async() => {
+    console.log("Pagos");
+    navigation.navigate("Pagos");
+    const status = await SusPagos(tipoPago, tipo, id);
+    console.log("Carlos");
+    navigation.navigate("Pagos");
+    console.log(status);
   };
 
   return (
@@ -116,8 +85,11 @@ export default function SocioCard({
       <Text style={styles.mesAdeudo}>{mesAdeudo}</Text>
 
       <View style={styles.containerB}>
-        <TouchableOpacity onPress={handledOnPress} style={styles.chatButton}>
-          <Entypo name="link" size={24} color={colors.white} />
+        <TouchableOpacity
+          onPress={handledOnPress}
+          style={styles.chatButton}
+        >
+          <Entypo name="paypal" size={24} color={colors.white} />
         </TouchableOpacity>
       </View>
 
