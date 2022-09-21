@@ -15,7 +15,7 @@ import { useNavigation } from "@react-navigation/native";
 import { Entypo } from "@expo/vector-icons";
 import colors from "../../../colors";
 import SusPagos from "../../screens/parners/Pagos";
-
+import Pagos from "../../screens/parners/Pagos"
 
 export default function SocioCard({
   id,
@@ -42,18 +42,25 @@ export default function SocioCard({
 }) {
   const navigation = useNavigation();
 
+  const [tipoP, setTipoP] = useState();
+  const [pagoTipo, setPagoTipo ] = useState();
   
+  useEffect(()=>{
+    setPagoTipo(tipoPago);
+    setTipoP(tipo);
+    envio();
+  },[]);
 
-  // console.log(tipoPago);
-  // console.log(tipo);
+   console.log(tipoP);
+   console.log(pagoTipo);
+   
+ 
+  const envio = async()=>{
+    const status = await SusPagos(pagoTipo, tipoP);  
+  };
 
   const handledOnPress = async() => {
-    console.log("Pagos");
-    navigation.navigate("Pagos");
-    const status = await SusPagos(tipoPago, tipo, id);
-    console.log("Carlos");
-    navigation.navigate("Pagos");
-    console.log(status);
+    navigation.navigate("Pagos");   
   };
 
   return (

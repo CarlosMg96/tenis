@@ -6,9 +6,11 @@ import {
   Alert,
   SafeAreaView,
   Linking,
+  ActivityIndicator,
 } from "react-native";
 import { Button, Icon } from "react-native-elements";
 import { WebView } from "react-native-webview";
+import { Image } from "react-native-elements";
 
 export default function AvisoCards({
   id,
@@ -16,6 +18,7 @@ export default function AvisoCards({
   descripcion,
   file,
   categoria,
+  imagen
 }) {
   function handleFile() {
     return file ? Linking.openURL(file) : Alert.alert("No hay archivo");
@@ -26,6 +29,13 @@ export default function AvisoCards({
       <Text style={styles.titulo}>{titulo} </Text>
       <Text style={styles.description}>{descripcion} </Text>
       <Text style={styles.categoria}>{categoria} </Text>
+      <Image
+          PlaceholderContent={
+            <ActivityIndicator size="large" color="#A0BC32" />
+          }
+          source={imagen ? { uri: imagen } : require("../../../assets/LOGO.png")}
+          style={styles.imagen}
+        />
       <Button title="Abrir Archivo" type="clear" onPress={handleFile}>
         <Icon name="folder-outline" type="material-icons" color="#A0BC32" />
       </Button>
@@ -41,7 +51,10 @@ const styles = StyleSheet.create({
     borderRadius: 30,
   },
   imagen: {
-    fontSize: 100,
+    width: 346,
+    height: 200,
+    marginBottom: 15,
+    borderRadius: 8,
   },
   titulo: {
     fontSize: 27,

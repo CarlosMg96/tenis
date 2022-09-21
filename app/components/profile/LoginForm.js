@@ -30,8 +30,11 @@ export default function LoginForm(props) {
             const auth = getAuth();
             signInWithEmailAndPassword(auth, formData.email, formData.password)
                 .then((userCredential) => {
+                    console.log(userCredential);
+                    console.log("Hoka");
                     setLoading(false)
                     navigation.navigate("profileStack")
+                    
                 })
                 .catch((error) => {
                    
@@ -45,7 +48,7 @@ export default function LoginForm(props) {
     return (
         <View style={styles.container}>
             <Input
-                placeholder="12334fx@gmail.com"
+                placeholder="villa@email.com"
                 keyboardType="email-address"
                 rightIcon={
                     <Icon type="material-community"
@@ -56,6 +59,7 @@ export default function LoginForm(props) {
                 }
                 label="Correo electrónico:*"
                 containerStyle={styles.containerInput}
+                inputContainerStyle={styles.inputText}
                 labelStyle={styles.labelInput}
                 onChange={(event) => change(event, "email")}
                 errorMessage={error.email}
@@ -72,9 +76,10 @@ export default function LoginForm(props) {
                         onPress={() => setShowPassword(!showPassword)}
                     />
                 }
-                label="Contraseña:*"
+                 label="Contraseña:*"
                 containerStyle={styles.containerInput}
                 labelStyle={styles.labelInput}
+                inputContainerStyle={styles.inputText}
                 secureTextEntry={showPassword}
                 onChange={(event) => change(event, "password")}
                 errorMessage={error.password}
@@ -114,24 +119,48 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         marginTop: 16,
+        backgroundColor: "#f1f1f1",
+        width: "90%",
+        height: 420,
+        borderRadius: 15,
+        marginLeft: 18.5,
+
     },
     containerInput: {
-        width: "100%",
-        marginBottom: 20
+        width: "90%",
+        marginBottom: 15,
+        
+        
+    },
+    inputText: {
+        borderColor: "gray",
+        borderRadius: 30,
+        borderTopWidth: 0,
+        borderEndWidth: 0,
+        borderColor: "white",
+        height: 50,
+        backgroundColor:"#FFF",
+        paddingStart: 20,
     },
     labelInput: {
-        fontSize: 20,
-        color: "#A0BC32"
+        fontSize: 27,
+        color: "#A0BC32",
+        borderColor:'gray',
+        padding: 10,
+        
     },
     btnContainer: {
-        width: "70%"
+        width: "70%",
+       
     },
     btn: {
         color: "#FFF",
-        backgroundColor: "#A0BC32"
+        backgroundColor: "#A0BC32",
+        borderRadius: 15,
     },
     textCreateAccount: {
         color: "#1E84B6",
-        marginTop: 16
+        marginTop: 16,
+
     }
 })

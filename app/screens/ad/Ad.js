@@ -31,6 +31,7 @@ export default function Avisos(){
         createdAt: doc.data().createdAt.toDate(),
         titulo: doc.data().titulo,
         descripcion: doc.data().descripcion,
+        imagen: doc.data().imagen,
         categoria: doc.data().categoria,
       }))
      ) 

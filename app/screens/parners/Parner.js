@@ -8,7 +8,7 @@ import {  onAuthStateChanged } from "firebase/auth"
 import { collection, onSnapshot, orderBy, query, QuerySnapshot, where } from "firebase/firestore"
 import { db } from '../../utils/firebase';
 import SocioCard from '../../components/Partners/SociosCard';
-
+import SusPagos from './Pagos';
 
 export default function Socio(props) {
     const navigation = useNavigation();
@@ -66,12 +66,13 @@ return unsubscribe;
 
     return (
        <ScrollView>
-          {socio[0] ? (socio.map(socio => <SocioCard key={socio.id} {...socio} /> )):(
+          {socio[0] ? (socio.map(socio => <SocioCard key={socio.id} {...socio} />  )):(
             <View style={styles.loaderHouses}>
             <ActivityIndicator size="large" color="#A0BC32" />
             <Text>Cargando Socio...</Text>
         </View>
           )}
+          {/* {socio.map(socio => <SusPagos key={socio.id} {...socio} />  )} */}
        </ScrollView>
     )
 }

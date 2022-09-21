@@ -56,9 +56,9 @@ export default function Product({
         />
         <Text style={styles.nombre}>{nombre} </Text>
         <Text style={styles.descripcion}>{descripcion} </Text>
-        <Text style={styles.lugar}>{Lugar} </Text>
-        <Text style={styles.rebaja}>{descuento}% </Text>
-        <Text style={styles.lugar}>La promoción aplica hasta: {vigencia}</Text>
+        <Text style={styles.lugar}>Valido en {Lugar} </Text>
+        <Text style={styles.rebaja}>{descuento?( descuento + "%"):(null) } </Text>
+        <Text style={styles.fecha}>La promoción aplica hasta: {vigencia}</Text>
       </View>
     </TouchableOpacity>
   );
@@ -96,6 +96,10 @@ const styles = StyleSheet.create({
   },
   lugar: {
     fontSize: 16,
+    textAlign: "center",
+  },
+  fecha: {
+    fontSize: 13,
     textAlign: "center",
   },
 

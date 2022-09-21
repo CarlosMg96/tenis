@@ -1,37 +1,36 @@
 import {
   StyleSheet,
-  Text,
-  View,
-  Button,
-  Alert,
   SafeAreaView,
 } from "react-native";
 import React, { useEffect, useState, Component } from "react";
 import { WebView } from "react-native-webview";
+import SocioCard from "../../components/Partners/SociosCard";
 
-export default function SusPagos(tipoPago, tipo) {
-  const [pagos, setPagos] = useState('https://buy.stripe.com/test_bIY4j53jddQd9BCbII');
-  console.log(tipoPago);
+export default function SusPagos(pagoTipo, tipoP, tipoPago, tipo, props) {
+  const [pagos, setPagos] = useState(
+    "https://buy.stripe.com/test_bIY4j53jddQd9BCbII"
+  );
+  
+  console.log("Carlitos");
+  console.log();
+  console.log("Manuel");
 
   const urlMensualIn = "https://buy.stripe.com/test_dR6dTF2f96nLdRSdQR";
   const urlAnualIn = "https://buy.stripe.com/test_bIY4j53jddQd9BCbII";
   const urlMensualFa = "https://buy.stripe.com/test_3csbLx6vpfYl7tubIK";
   const urlAnualFa = "https://buy.stripe.com/test_bIY4j53jddQd9BCbII";
 
-useEffect(() => {
-Metodo()
-},[])
+  useEffect(() => {
+    Metodo();
+  }, []);
 
   const Metodo = () => {
-    console.log("hola"+tipo);
-    console.log("Mundo"+tipoPago);
     if (tipo === "Individual") {
       if (tipoPago === "Mensual") {
         setPagos(urlMensualIn);
         const revision =
           "https://dashboard.stripe.com/payment-links/plink_1LV48cHdQdShCuDcMBQbcgfe";
         console.log(revision);
-        
       }
       if (tipoPago === "Anual") {
         setPagos(urlAnualIn);
@@ -53,14 +52,11 @@ Metodo()
         const revision =
           "https://dashboard.stripe.com/payment-links/plink_1LV48cHdQdShCuDcMBQbcgfe";
         console.log(revision);
-        console.log(suscripcion);
       }
       if (tipoPago === "Anual") {
         setPagos(urlAnualIn);
       }
     }
-
-    console.log(pagos);
   };
 
   return (
