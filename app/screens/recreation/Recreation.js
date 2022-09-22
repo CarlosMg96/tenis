@@ -119,19 +119,22 @@ const styles = StyleSheet.create({
     flexDirection:'row',
     borderRadius:30,
   },
+  info: {
+    color: 'gray',
+  },
 
   name:{
     fontSize:18,
     flex:1,
     alignSelf:'center',
-    color:"#008000",
+    color:"#A0BC32",
     fontWeight:'bold'
   },
   count:{
     fontSize:14,
     flex:1,
     alignSelf:'center',
-    color:"#6666ff"
+    color:"gray"
   },
   followButton: {
     marginTop:10,
