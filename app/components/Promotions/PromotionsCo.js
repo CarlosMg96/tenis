@@ -8,9 +8,11 @@ import {
   Alert,
   TouchableOpacity,
 } from "react-native";
-import { Icon, Image } from "react-native-elements";
+import { Icon, Image, Card } from "react-native-elements";
 import { db } from "../../utils/firebase";
 import { deleteDoc, doc } from "firebase/firestore";
+import { Col, Row, Grid } from 'react-native-easy-grid';
+
 
 export default function Product({
   id,
@@ -46,20 +48,30 @@ export default function Product({
 
   return (
     <TouchableOpacity onPress={createAlert}>
-      <View style={styles.container}>
-        <Image
-          PlaceholderContent={
-            <ActivityIndicator size="large" color="#A0BC32" />
-          }
-          source={file ? { uri: file } : require("../../../assets/LOGO.png")}
+    <Card containerStyle={styles.card}>
+        <Card.Title  style={styles.titulos}>{nombre}</Card.Title>
+        <Card.Divider />
+        <Grid>
+          <Row>
+            <Col style={styles.marcoi}>
+            <Card.Image
           style={styles.imagen}
+          source={file ? { uri: file } : require("../../../assets/LOGO.png")}
         />
-        <Text style={styles.nombre}>{nombre} </Text>
-        <Text style={styles.descripcion}>{descripcion} </Text>
-        <Text style={styles.lugar}>Valido en {Lugar} </Text>
-        <Text style={styles.rebaja}>{descuento?( descuento + "%"):(null) } </Text>
-        <Text style={styles.fecha}>La promoción aplica hasta: {vigencia}</Text>
-      </View>
+            </Col>
+          </Row>
+      
+       
+       <Row>
+            <Col style={styles.marco}>
+            <Text style={styles.descripcion}>{"\n"}{descripcion} {"\n"} </Text>
+        <Text style={styles.descripcion}>Valido en {Lugar} </Text>
+        <Text style={styles.descripcion}>{descuento?( "Aplica con un descuento de " + descuento ):(null) }{"\n"} </Text>
+        <Text style={styles.fecha}>La promoción aplica hasta: {vigencia}{"\n"}</Text>
+            </Col>
+          </Row>
+       </Grid>
+      </Card>
     </TouchableOpacity>
   );
 }
@@ -71,22 +83,41 @@ const styles = StyleSheet.create({
     margin: 16,
     borderRadius: 30,
     textAlign: "center",
+    borderWidth: 5,
+    borderColor: "gray",
+    alignItems: "center",
   },
   imagen: {
-    width: 346,
+    width: 330,
     height: 200,
     marginBottom: 15,
-    borderRadius: 8,
+    borderRadius: 10,
   },
-  nombre: {
-    fontSize: 32,
-    fontWeight: "bold",
-    color: "#A0BC32",
+  marco: {
+    backgroundColor: "#f1f1f1",
+    margin: 7,
+    borderRadius: 10,
+    borderColor: "white",
+    borderWidth: 1,
+  },
+  marcoi: {
+    alignItems: "center",
+  },
+  titulos:{
     textAlign: "center",
+    fontSize: 25,
+    fontWeight: "bold",
+    margin: 6,
+    color: "gray",
   },
   descripcion: {
-    fontSize: 20,
     textAlign: "center",
+    fontSize: 15,
+  },
+  fecha: {
+    fontSize: 13,
+    textAlign: "center",
+    fontStyle: "italic",
   },
   rebaja: {
     fontSize: 24,
@@ -98,13 +129,16 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textAlign: "center",
   },
-  fecha: {
-    fontSize: 13,
-    textAlign: "center",
-  },
+  
 
   id: {
     fontSize: 12,
     textAlign: "center",
+  },
+  card: {
+    borderRadius: 15,
+    backgroundColor: "#fff",
+    borderColor: "transparent",
+    borderWidth: 1,
   },
 });

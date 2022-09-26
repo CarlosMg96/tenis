@@ -15,7 +15,7 @@ export default function AnunciosStack() {
             <Stack.Screen
                 name="AnunciosB"
                 component={AnunciosB}
-                options={{ title: "Promociones" }}
+                options={{ title: "" }}
             />
         </Stack.Navigator>
     )

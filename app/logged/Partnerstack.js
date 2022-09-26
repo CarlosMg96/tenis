@@ -14,13 +14,13 @@ export default function AnunciosStack() {
             screenOptions={{
                 headerMode: 'screen',
                 headerTintColor: 'white',
-                headerStyle: { backgroundColor: '#A0BC32' }
+                headerStyle: { backgroundColor: '#A0BC32' },
             }}
         >
             <Stack.Screen
                 name="Parner"
                 component={Parner}
-                options={{ title: "Socio" }}
+                options={{ title: "" }}
             />
             <Stack.Screen
                 name="Chat"

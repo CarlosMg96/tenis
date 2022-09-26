@@ -4,6 +4,7 @@ import { Input, Button, Icon } from 'react-native-elements';
 import { isEmpty } from 'lodash';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import Loading from '../Loading';
+import Toast from 'react-native-simple-toast';
 
 export default function LoginForm(props) {
     const [loading, setLoading] = useState(false)
@@ -30,17 +31,16 @@ export default function LoginForm(props) {
             const auth = getAuth();
             signInWithEmailAndPassword(auth, formData.email, formData.password)
                 .then((userCredential) => {
-                    console.log(userCredential);
-                    console.log("Hoka");
                     setLoading(false)
-                    navigation.navigate("profileStack")
+               //     Toast.showWithGravity('Bienvenido Soci@', Toast.LONG, Toast.TOP);
+                    // navigation.navigate("profileStack")
+                    
                     
                 })
                 .catch((error) => {
                    
                     setLoading(false)
-                    // alert("Usuaria o contraseña incorrectas");
-                //    toastRef.current.show("Usuaria o contraseña incorrectas")
+                    Toast.show('Usuaria o contraseña incorrectas.');
                 
             });
         }

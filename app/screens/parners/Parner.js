@@ -53,7 +53,9 @@ export default function Socio(props) {
         tipo: doc.data().tipo,
         tipoPago: doc.data().tipoPago,
         titular: doc.data().titular,
-
+        fileM: doc.data().fileM,
+        nombreEs: doc.data().nombreEs,
+        estado: doc.data().estado,
       } 
       ))
      ) 
@@ -66,14 +68,19 @@ return unsubscribe;
 
     return (
        <ScrollView>
-          {socio[0] ? (socio.map(socio => <SocioCard key={socio.id} {...socio} />  )):(
+          {socio[0] ? socio.map(socio => <SocioCard key={socio.id} {...socio} />  )
+         
+          :
             <View style={styles.loaderHouses}>
             <ActivityIndicator size="large" color="#A0BC32" />
             <Text>Cargando Socio...</Text>
+            
+           
         </View>
-          )}
-          {/* {socio.map(socio => <SusPagos key={socio.id} {...socio} />  )} */}
+          }
+        
        </ScrollView>
+       
     )
 }
 const styles = StyleSheet.create({
@@ -106,6 +113,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'flex-end',
         alignItems: 'flex-end',
+        position: "absolute",
     },
     chatButton: {
         backgroundColor: colors.primary,

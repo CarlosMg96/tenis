@@ -8,7 +8,7 @@ import {
   Button,
   Linking,
 } from "react-native";
-import { Icon, Image } from "react-native-elements";
+import { Icon, Image, Card } from "react-native-elements";
 import { db } from "../../utils/firebase";
 import { deleteDoc, doc } from "firebase/firestore";
 import { useNavigation } from "@react-navigation/native";
@@ -16,12 +16,14 @@ import { Entypo } from "@expo/vector-icons";
 import colors from "../../../colors";
 import SusPagos from "../../screens/parners/Pagos";
 import Pagos from "../../screens/parners/Pagos"
+import { Col, Row, Grid } from 'react-native-easy-grid';
+import  Svg, {Path, Defs, Pattern, Use} from 'react-native-svg';
 
 export default function SocioCard({
   id,
   email,
   file,
-  activo,
+  estado,
   apelativo,
   casilleros,
   colonia,
@@ -39,6 +41,8 @@ export default function SocioCard({
   tipo,
   tipoPago,
   titular,
+  fileM,
+  nombreEs,
 }) {
   const navigation = useNavigation();
 
@@ -63,35 +67,89 @@ export default function SocioCard({
     navigation.navigate("Pagos");   
   };
 
+  function Svgg() {
+    return (
+      <Svg
+      width={428}
+    height={155}
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <Path
+      d="M-10.963 117.814C-9.753 79.274-9.096 2.428-12-.129L436-1v118.814c-60.978 65.536-180.444 27.307-227.63 0-98.311-69.952-187.185-29.147-219.333 0Z"
+      fill="#A0BC32"
+      stroke="#A0BC32"
+    />
+        <Defs>
+        <Pattern
+          id="a"
+          patternContentUnits="objectBoundingBox"
+          width={1}
+          height={1}
+        >
+          <Use xlinkHref="#b" transform="scale(.00024)" />
+        </Pattern>
+       <Text style={styles.TituloP}> Bienvenido  </Text>
+      </Defs>
+    </Svg>
+    )
+  }
+
   return (
     <View style={styles.container}>
-      <Image
-        PlaceholderContent={<ActivityIndicator size="large" color="#A0BC32" />}
-        source={file ? { uri: file } : require("../../../assets/LOGO.png")}
-        style={styles.imagen}
-      />
-      <Text style={styles.titular}>
-        {apelativo} {titular} No° {noMembresia}
-      </Text>
-      <Text style={styles.importe}>Importe: {importe}</Text>
-      <Text style={styles.tipo}>
-        Tipo: {tipo} Pago: {tipoPago}
-      </Text>
-      <Text style={styles.email}>Email: {email}</Text>
-      <Text style={styles.direccion}>
-        {" "}
-        Direccion: {direccion} {cp} {colonia} {pais}
-      </Text>
-      <Text style={styles.ingreso}>Ingreso: {fIngreso}</Text>
-      <Text style={styles.nacimiento}>Nacimiento: {fNacimiento}</Text>
-      <Text style={styles.cacilleros}>Casillero: {casilleros}</Text>
-      <Text style={styles.telefono}>
-        Telefono Casa: {telCasa} telefono Celular: {telCelular}{" "}
-      </Text>
-      <Text style={styles.observaciones}>{observaciones}</Text>
-      <Text style={styles.mesAdeudo}>{mesAdeudo}</Text>
+     <Svgg/>
+     <Card containerStyle={styles.card}>
+          <Card.Title style={styles.titulos}> {apelativo} {titular} {"\n"} Membresia No° {noMembresia}</Card.Title>
+          <Card.Divider />
+          <Grid>
+          <Row>
+            <Col style={styles.marcoi}>
+            <Card.Image
+            PlaceholderContent={<ActivityIndicator size="large" color="#A0BC32" />}
+            source={file ? { uri: file } : require("../../../assets/LOGO.png")}
+            style={styles.imagen}
+          />
+            </Col>
+            <Col style={styles.marcoi}>
+            <Card.Image
+            PlaceholderContent={<ActivityIndicator size="large" color="#A0BC32" />}
+            source={fileM ? { uri: fileM } : require("../../../assets/LOGO.png")}
+            style={styles.imagen}
+          />
+            </Col>
+          </Row>
 
-      <View style={styles.containerB}>
+          <Row>
+            <Col>
+            {/* <Text style={styles.titulos}>Estado</Text> */}
+            {estado === "Activo" ? <Text style={styles.activo}>{estado}</Text> :
+             <Text style={styles.inactivo}>{estado}</Text>}
+  
+            </Col>
+          </Row>
+
+          <Row>
+            <Col style={styles.marco}>
+            <Text style={styles.titulos}>Correo</Text>
+            <Text style={styles.descripcion}>{email}{"\n"}</Text>
+            </Col>
+          </Row>
+
+
+          <Row>
+            <Col style={styles.marco2filas }>
+              <Text style={styles.titulos}>Tipo de membresia: </Text>
+              <Text style={styles.descripcion}>{tipo} {"\n"}</Text>
+            </Col>
+            <Col style={styles.marco}>
+            <Text style={styles.titulos}>Tipo de Pago: </Text>
+            <Text style={styles.descripcion}>{tipoPago} {"\n"}</Text>
+            </Col>
+          </Row>
+          <Row>
+            <Col style={styles.marcoi }>
+              <Text style={styles.titulos}>Suscripción: </Text>
+              <View style={styles.containerB}>
         <TouchableOpacity
           onPress={handledOnPress}
           style={styles.chatButton}
@@ -99,79 +157,155 @@ export default function SocioCard({
           <Entypo name="paypal" size={24} color={colors.white} />
         </TouchableOpacity>
       </View>
+            </Col>
+            <Col style={styles.marcoi}>
+            <Text style={styles.titulos}>Chat: </Text>
+            <View style={styles.containerB}>
+           <TouchableOpacity
+             onPress={() => navigation.navigate("Chat")}
+             style={styles.chatButton}
+           >
+             <Entypo name="chat" size={24} color={colors.white} />
+           </TouchableOpacity>
+         </View>
+            </Col>
+          </Row>
+          {nombreEs? <Row>
+              <Col style={styles.marco}>
+              <Text style={styles.titulos}>Nombre del espos@: </Text>
+                <Text style={styles.descripcion}> {nombreEs} {"\n"}</Text>
+              </Col>  
+          </Row>: null}
+          <Row>
+            <Col style={styles.marco}>
+            <Text style={styles.titulos}>Dirección</Text>
+            <Text style={styles.descripcion}>
+             {direccion}, cp {cp}, colonia {colonia}, país {pais} {"\n"}
+          </Text>
+            </Col>
+          </Row>
+          <Row>
+          <Col style={styles.marco}>
+            <Text style={styles.titulos}>Contacto</Text>
+            <Text style={styles.descripcion}>Teléfono de Celular: {telCelular} {"\n"}
+            Teléfono de Casa: {telCasa} {"\n"} </Text>
+            </Col>
+          </Row>
+          <Row>
+            <Col style={styles.marco}>
+              <Text style={styles.titulos}>Observaciones:</Text>
+              {observaciones? <Text style={styles.descripcion}>{observaciones} {"\n"}</Text>:
+               <Text style={styles.descripcion}>No hay observaciones {"\n"}</Text>}
+            </Col>
+          </Row>
+         
+         </Grid>
+          <Button
+          onPress={handledOnPress}
+            icon={
+              <Entypo name="paypal" size={24} color={colors.white} />
+            }
+            buttonStyle={{
+              borderRadius: 0,
+              marginLeft: 0,
+              marginRight: 0,
+              marginBottom: 0,
+            }}
+            title="Estado de sucripción"
+          />
+        </Card>
 
-      <View style={styles.containerB}>
-        <TouchableOpacity
-          onPress={() => navigation.navigate("Chat")}
-          style={styles.chatButton}
-        >
-          <Entypo name="chat" size={24} color={colors.white} />
-        </TouchableOpacity>
-      </View>
+    
+
+      
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    padding: 16,
-    backgroundColor: "#fff",
-    margin: 16,
-    borderRadius: 30,
-    textAlign: "center",
+    backgroundColor: "#FFF",
+        height: "100%",
+        width: "100%",
   },
   imagen: {
     width: 100,
     height: 100,
     marginBottom: 15,
     borderRadius: 50,
+    padding: 1,
+    margin:26,
+    borderColor: "gray",
   },
-  observaciones: {
-    padding: 30,
-    backgroundColor: "#fff",
-    margin: 30,
-    borderRadius: 30,
+  titulos:{
     textAlign: "center",
-  },
-  titular: {
-    width: 100,
-    height: 100,
-    marginBottom: 15,
-    borderRadius: 50,
-  },
-  tipo: {
-    fontSize: 20,
+    fontSize: 17,
     fontWeight: "bold",
-    color: "#A0BC32",
-    textAlign: "center",
-  },
-  email: {
-    fontSize: 15,
-    textAlign: "center",
-  },
-  rebaja: {
-    fontSize: 24,
-    fontWeight: "bold",
+    margin: 6,
     color: "gray",
-    textAlign: "center",
   },
-  direccion: {
-    fontSize: 15,
+  marco: {
+    backgroundColor: "#f1f1f1",
+    margin: 10,
+    borderRadius: 10,
+    borderColor: "white",
+    borderWidth: 1,
+  },
+  marcoi: {
+    alignItems: "center",
+  },
+  marco2filas: {
+    backgroundColor: "#f1f1f1",
+    margin: 10,
+    borderRadius: 10,
+    borderColor: "white",
+    borderWidth: 1,
+    width:"52%",
+  },
+  TituloP: {
     textAlign: "center",
+    fontSize: 36,
+    fontWeight: "bold",
+    margin: 6,
+    marginTop: 5,
+    color: "#f1f1f1",
+  },
+  activo: {
+    fontSize: 15,
+    fontWeight: "bold",
+    backgroundColor: "#A0BC32",
+    textAlign: "center",
+    borderRadius: 30,
+    color: "white",
+    marginLeft: 60,
+    marginRight: 60,
+    marginVertical:10,
+  },
+  inactivo: {
+    fontSize: 15,
+    fontWeight: "bold",
+    backgroundColor: "red",
+    textAlign: "center",
+    borderRadius: 30,
+    color: "white",
+    marginLeft: 60,
+    marginRight: 60,
+    marginVertical:10,
   },
 
-  telefono: {
-    fontSize: 17,
+  descripcion: {
+    fontSize: 15,
     textAlign: "center",
+    
   },
-  containerInput: {
-    width: "100%",
-    marginBottom: 20,
+
+  card: {
+    borderRadius: 15,
+    backgroundColor: "#fff",
+    borderColor: "transparent",
+    borderWidth: 1,
   },
-  labelInput: {
-    fontSize: 20,
-    color: "#A0BC32",
-  },
+  
   btnContainer: {
     width: "70%",
   },
@@ -194,6 +328,7 @@ const styles = StyleSheet.create({
     width: 50,
     borderRadius: 25,
     alignItems: "center",
+    marginTop: 10,
     justifyContent: "center",
     shadowColor: colors.primary,
     shadowOffset: {

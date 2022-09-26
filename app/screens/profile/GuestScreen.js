@@ -19,17 +19,17 @@ function SvgTop(){
       <Path
         d="M-.007 204.2C1.152 137.315 1.781 3.949-1-.488L428-2v206.2c-58.392 113.737-172.792 47.39-217.976 0-94.141-121.401-179.246-50.584-210.03 0Z"
         fill="#A0BC32"
-        fillOpacity={0.75}
+        // fillOpacity={0.75}
       />
-      <Path
+      {/* <Path
         d="M-.007 204.2C1.152 137.315 1.781 3.949-1-.488L428-2v206.2c-58.392 113.737-172.792 47.39-217.976 0-94.141-121.401-179.246-50.584-210.03 0Z"
         fill="#D9D9D9"
         fillOpacity={0.2}
-      />
+      /> */}
       <Path
         d="M-.007 204.2C1.152 137.315 1.781 3.949-1-.488L428-2v206.2c-58.392 113.737-172.792 47.39-217.976 0-94.141-121.401-179.246-50.584-210.03 0Z"
         stroke="#A0BC32"
-        strokeOpacity={0.5}
+        // strokeOpacity={0.5}
       />
       <Path fill="url(#a)" d="M141 133h145v145H141z" />
       <Defs>
@@ -61,7 +61,7 @@ return(
         
         </Text>
         <Text style={styles.description}>
-        Sí no eres socio contáctate con nosotros.
+        Sí no eres socio, contáctate con nosotros.
 
                     
                 </Text>
@@ -101,8 +101,11 @@ const styles = StyleSheet.create({
     },
     img: {
         width: "100%",
-        marginTop: 150,
+        marginTop: 152,
         height: 150, 
+        alignItems: "center",
+        marginLeft: -5,
+
     },
     title: {
         fontWeight: "bold",
