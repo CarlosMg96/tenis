@@ -17,7 +17,7 @@ import colors from "../../../colors";
 import SusPagos from "../../screens/parners/Pagos";
 import Pagos from "../../screens/parners/Pagos"
 import { Col, Row, Grid } from 'react-native-easy-grid';
-import  Svg, {Path, Defs, Pattern, Use} from 'react-native-svg';
+import  Svg, {Path, Defs, Pattern, Use, Fill, Stroke} from 'react-native-svg';
 
 export default function SocioCard({
   id,
@@ -72,13 +72,12 @@ export default function SocioCard({
       <Svg
       width={428}
     height={155}
-    fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
     <Path
       d="M-10.963 117.814C-9.753 79.274-9.096 2.428-12-.129L436-1v118.814c-60.978 65.536-180.444 27.307-227.63 0-98.311-69.952-187.185-29.147-219.333 0Z"
-      fill="#A0BC32"
-      stroke="#A0BC32"
+      Fill="#A0BC32"
+      Stroke="#A0BC32"
     />
         <Defs>
         <Pattern
@@ -147,7 +146,7 @@ export default function SocioCard({
             </Col>
           </Row>
           <Row>
-            <Col style={styles.marcoi }>
+            <Col style={styles.marco }>
               <Text style={styles.titulos}>Suscripción: </Text>
               <View style={styles.containerB}>
         <TouchableOpacity
@@ -158,7 +157,7 @@ export default function SocioCard({
         </TouchableOpacity>
       </View>
             </Col>
-            <Col style={styles.marcoi}>
+            <Col style={styles.marco}>
             <Text style={styles.titulos}>Chat: </Text>
             <View style={styles.containerB}>
            <TouchableOpacity
@@ -268,7 +267,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     margin: 6,
     marginTop: 5,
-    color: "#f1f1f1",
+    color: "gray",
   },
   activo: {
     fontSize: 15,

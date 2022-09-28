@@ -45,13 +45,13 @@ return unsubscribe;
       <Svg
       width={428}
     height={155}
-    fill="none"
+    // fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
     <Path
       d="M-10.963 117.814C-9.753 79.274-9.096 2.428-12-.129L436-1v118.814c-60.978 65.536-180.444 27.307-227.63 0-98.311-69.952-187.185-29.147-219.333 0Z"
-      fill="#A0BC32"
-      stroke="#A0BC32"
+      // fill="#A0BC32"
+      // Stroke="#A0BC32"
     />
         <Defs>
         <Pattern
@@ -88,6 +88,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     margin: 6,
     marginTop: 5,
-    color: "#f1f1f1",
+    color: "gray",
   },
 })

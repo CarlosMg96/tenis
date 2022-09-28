@@ -12,6 +12,8 @@ import { Icon, Image, Card } from "react-native-elements";
 import { db } from "../../utils/firebase";
 import { deleteDoc, doc } from "firebase/firestore";
 import { Col, Row, Grid } from 'react-native-easy-grid';
+import QRCode from 'react-native-qrcode-svg';
+import { signOut } from "firebase/auth";
 
 
 export default function Product({
@@ -22,6 +24,10 @@ export default function Product({
   file,
   Lugar,
   vigencia,
+
+  
+
+
 
   createAlert = () => {
     Alert.alert("Cupón", `Cupón ${id}`, [
@@ -37,17 +43,45 @@ export default function Product({
         },
       },
     ]);
+
   },
 
+  
   utilizado = () => {
     const [aceptado, setAceptado] = useState("utilizado");
     console.log(id + "utilizado");
   },
-}) {
+}
+)
+{
+
+  const [qrvalue, setQrvalue] = useState(id);
+
+  function FuntionQr() {
+    return (
+      Alert.alert("Cupón", `Cupón ${id}`, [
+        {
+          text: "Cancelar",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "Cancelar",
+        },
+        {
+          text: "Usar",
+          onPress: () => {
+            utilizado;
+          },
+        },
+        <QRCode
+        value="http://awesome.link.qr"
+      />
+      ])
+    
+    )
+  }
   // Esto va en en la descarga osea en promociones
 
   return (
-    <TouchableOpacity onPress={createAlert}>
+    <TouchableOpacity onPress={FuntionQr}>
     <Card containerStyle={styles.card}>
         <Card.Title  style={styles.titulos}>{nombre}</Card.Title>
         <Card.Divider />
@@ -68,6 +102,7 @@ export default function Product({
         <Text style={styles.descripcion}>Valido en {Lugar} </Text>
         <Text style={styles.descripcion}>{descuento?( "Aplica con un descuento de " + descuento ):(null) }{"\n"} </Text>
         <Text style={styles.fecha}>La promoción aplica hasta: {vigencia}{"\n"}</Text>
+        
             </Col>
           </Row>
        </Grid>
