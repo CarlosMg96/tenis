@@ -8,13 +8,13 @@ import {
   Alert,
   TouchableOpacity,
 } from "react-native";
-import { Icon, Image, Card } from "react-native-elements";
+import { Icon, Image, Card, Button } from "react-native-elements";
 import { db } from "../../utils/firebase";
 import { deleteDoc, doc } from "firebase/firestore";
-import { Col, Row, Grid } from 'react-native-easy-grid';
-import QRCode from 'react-native-qrcode-svg';
+import { Col, Row, Grid } from "react-native-easy-grid";
+import QRCode from "react-native-qrcode-svg";
 import { signOut } from "firebase/auth";
-
+import ModalPromotions from "../extras/ModalPromotions";
 
 export default function Product({
   id,
@@ -24,10 +24,6 @@ export default function Product({
   file,
   Lugar,
   vigencia,
-
-  
-
-
 
   createAlert = () => {
     Alert.alert("Cupón", `Cupón ${id}`, [
@@ -43,69 +39,77 @@ export default function Product({
         },
       },
     ]);
-
   },
 
-  
   utilizado = () => {
     const [aceptado, setAceptado] = useState("utilizado");
     console.log(id + "utilizado");
   },
-}
-)
-{
-
+}) {
   const [qrvalue, setQrvalue] = useState(id);
+  const [isModalOpen, setIsModalOpen ] = useState(false);
 
   function FuntionQr() {
-    return (
-      Alert.alert("Cupón", `Cupón ${id}`, [
-        {
-          text: "Cancelar",
-          onPress: () => console.log("Cancel Pressed"),
-          style: "Cancelar",
+    return Alert.alert("Cupón", `Cupón ${id}`, [
+      {
+        text: "Cancelar",
+        onPress: () => console.log("Cancel Pressed"),
+        style: "Cancelar",
+      },
+      {
+        text: "Usar",
+        onPress: () => {
+          utilizado;
         },
-        {
-          text: "Usar",
-          onPress: () => {
-            utilizado;
-          },
-        },
-        <QRCode
-        value="http://awesome.link.qr"
-      />
-      ])
-    
-    )
+      },
+      <QRCode value="http://awesome.link.qr" />,
+    ]);
   }
+
   // Esto va en en la descarga osea en promociones
 
   return (
     <TouchableOpacity onPress={FuntionQr}>
-    <Card containerStyle={styles.card}>
-        <Card.Title  style={styles.titulos}>{nombre}</Card.Title>
+      <Card containerStyle={styles.card}>
+        <Card.Title style={styles.titulos}>{nombre}</Card.Title>
         <Card.Divider />
         <Grid>
           <Row>
             <Col style={styles.marcoi}>
-            <Card.Image
-          style={styles.imagen}
-          source={file ? { uri: file } : require("../../../assets/LOGO.png")}
-        />
+              <Card.Image
+                style={styles.imagen}
+                source={
+                  file ? { uri: file } : require("../../../assets/LOGO.png")
+                }
+              />
             </Col>
           </Row>
-      
-       
-       <Row>
+
+          <Row>
             <Col style={styles.marco}>
-            <Text style={styles.descripcion}>{"\n"}{descripcion} {"\n"} </Text>
-        <Text style={styles.descripcion}>Valido en {Lugar} </Text>
-        <Text style={styles.descripcion}>{descuento?( "Aplica con un descuento de " + descuento ):(null) }{"\n"} </Text>
-        <Text style={styles.fecha}>La promoción aplica hasta: {vigencia}{"\n"}</Text>
-        
+              <Text style={styles.descripcion}>
+                {"\n"}
+                {descripcion} {"\n"}{" "}
+              </Text>
+              <Text style={styles.descripcion}>Valido en {Lugar} </Text>
+              <Text style={styles.descripcion}>
+                {descuento ? "Aplica con un descuento de " + descuento : null}
+                {"\n"}{" "}
+              </Text>
+              <Text style={styles.fecha}>
+                La promoción aplica hasta: {vigencia}
+                {"\n"}
+              </Text>
             </Col>
           </Row>
-       </Grid>
+          <Row>
+            <Col>
+            <Button title="Open Modal" onPress={() => setIsModalOpen(!isModalOpen)} />
+              <ModalPromotions   isModalOpen={isModalOpen}
+        setIsModalOpen={setIsModalOpen}/>
+            </Col>
+          </Row>
+        </Grid>
       </Card>
     </TouchableOpacity>
   );
@@ -138,7 +142,7 @@ const styles = StyleSheet.create({
   marcoi: {
     alignItems: "center",
   },
-  titulos:{
+  titulos: {
     textAlign: "center",
     fontSize: 25,
     fontWeight: "bold",
@@ -164,7 +168,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textAlign: "center",
   },
-  
 
   id: {
     fontSize: 12,

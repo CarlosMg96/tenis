@@ -6,16 +6,12 @@ import {
   StyleSheet,
   TouchableOpacity,
   Button,
-  Linking,
 } from "react-native";
 import { Icon, Image, Card } from "react-native-elements";
-import { db } from "../../utils/firebase";
-import { deleteDoc, doc } from "firebase/firestore";
 import { useNavigation } from "@react-navigation/native";
 import { Entypo } from "@expo/vector-icons";
 import colors from "../../../colors";
 import SusPagos from "../../screens/parners/Pagos";
-import Pagos from "../../screens/parners/Pagos"
 import { Col, Row, Grid } from 'react-native-easy-grid';
 import  Svg, {Path, Defs, Pattern, Use, Fill, Stroke} from 'react-native-svg';
 
@@ -52,16 +48,16 @@ export default function SocioCard({
   useEffect(()=>{
     setPagoTipo(tipoPago);
     setTipoP(tipo);
-    envio();
+    // envio();
   },[]);
 
-   console.log(tipoP);
-   console.log(pagoTipo);
+  //  console.log(tipoP);
+  //  console.log(pagoTipo);
    
  
-  const envio = async()=>{
-    const status = await SusPagos(pagoTipo, tipoP);  
-  };
+  // const envio = async()=>{
+  //   const status = await SusPagos(pagoTipo, tipoP);  
+  // };
 
   const handledOnPress = async() => {
     navigation.navigate("Pagos");   

@@ -1,74 +1,119 @@
-import {
-  StyleSheet,
-  SafeAreaView,
-} from "react-native";
-import React, { useEffect, useState, Component } from "react";
-import { WebView } from "react-native-webview";
-import SocioCard from "../../components/Partners/SociosCard";
+import React, { useState, useLayoutEffect, useEffect } from 'react';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, ActivityIndicator  } from 'react-native'
+import { getAuth } from 'firebase/auth';
+import { useNavigation } from '@react-navigation/native';
+import colors from "../../../colors"
+import {  onAuthStateChanged } from "firebase/auth"
+import { collection, onSnapshot, orderBy, query, QuerySnapshot, where } from "firebase/firestore"
+import { db } from '../../utils/firebase';
+import CardPay from "../../components/Partners/CardPay"
 
-export default function SusPagos(pagoTipo, tipoP, tipoPago, tipo, props) {
-  const [pagos, setPagos] = useState(
-    "https://buy.stripe.com/test_bIY4j53jddQd9BCbII"
-  );
-  
-  console.log("Carlitos");
-  console.log();
-  console.log("Manuel");
 
-  const urlMensualIn = "https://buy.stripe.com/test_dR6dTF2f96nLdRSdQR";
-  const urlAnualIn = "https://buy.stripe.com/test_bIY4j53jddQd9BCbII";
-  const urlMensualFa = "https://buy.stripe.com/test_3csbLx6vpfYl7tubIK";
-  const urlAnualFa = "https://buy.stripe.com/test_bIY4j53jddQd9BCbII";
+export default function Socio(props) {
+    const navigation = useNavigation();
+    const [login, setLogin] = useState(null)
+    const [email, setEmail] = useState(null)
+    const [socio, setSocio] = useState([])
+    const [reloading, setReloading] = useState(true)
 
-  useEffect(() => {
-    Metodo();
-  }, []);
+    useEffect(() => {
+    const auth = getAuth()
+    onAuthStateChanged(auth, (user) => {
+      !user ? setLogin(false) : setLogin(true)
+    })
+   setEmail(auth.currentUser.email)
 
-  const Metodo = () => {
-    if (tipo === "Individual") {
-      if (tipoPago === "Mensual") {
-        setPagos(urlMensualIn);
-        const revision =
-          "https://dashboard.stripe.com/payment-links/plink_1LV48cHdQdShCuDcMBQbcgfe";
-        console.log(revision);
-      }
-      if (tipoPago === "Anual") {
-        setPagos(urlAnualIn);
-      }
-    }
-    if (tipo === "Familiar") {
-      if (tipoPago === "Mensual") {
-        setPagos(urlMensualFa);
-        const revision =
-          "https://dashboard.stripe.com/payment-links/plink_1LV4GsHdQdShCuDcKRWkRdc9";
-      }
-      if (tipoPago === "Anual") {
-        setPagos(urlAnualFa);
-      }
-    }
-    if (tipo === "Matrimonial") {
-      if (tipoPago === "Mensual") {
-        setPagos(urlMensualIn);
-        const revision =
-          "https://dashboard.stripe.com/payment-links/plink_1LV48cHdQdShCuDcMBQbcgfe";
-        console.log(revision);
-      }
-      if (tipoPago === "Anual") {
-        setPagos(urlAnualIn);
-      }
-    }
-  };
+  }, [])
 
-  return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <WebView
-        source={{
-          uri: pagos,
-        }}
-        style={{ marginTop: 1 }}
-      />
-    </SafeAreaView>
-  );
+  useLayoutEffect(() =>{
+    const refCollections = collection(db, 'socios');
+   const q = query(refCollections, where("email", "==" ,`${email}`));
+
+  const unsubscribe = onSnapshot(q, querySnapshot => {
+     setSocio(
+      querySnapshot.docs.map(doc => ({
+        id: doc.id,
+        file: doc.data().file,
+        email: doc.data().email,
+        apelativo: doc.data().apelativo,
+        importe: doc.data().importe,
+        mesAdeudo: doc.data().mesAdeudo,
+        noMembresia: doc.data().noMembresia,
+        tipo: doc.data().tipo,
+        tipoPago: doc.data().tipoPago,
+        titular: doc.data().titular,
+        estado: doc.data().estado,
+      } 
+      ))
+     ) 
+    })
+    setReloading(false)
+return unsubscribe;
+  },[reloading])
+
+
+    return (
+       <ScrollView>
+          {socio[0] ? socio.map(socio => <CardPay key={socio.id} {...socio} />  )
+         
+          :
+            <View style={styles.loaderHouses}>
+            <ActivityIndicator size="large" color="#A0BC32" />
+            <Text>Cargando...</Text>
+        </View>
+          }
+        
+       </ScrollView>
+       
+    )
 }
-
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        marginTop: 16,
+    },
+    containerInput: {
+        width: "100%",
+        marginBottom: 20
+    },
+    labelInput: {
+        fontSize: 20,
+        color: "#A0BC32"
+    },
+    btnContainer: {
+        width: "70%"
+    },
+    btn: {
+        color: "#FFF",
+        backgroundColor: "#A0BC32"
+    },
+    textCreateAccount: {
+        color: "#1E84B6",
+        marginTop: 16
+    },
+    containerB: {
+        flex: 1,
+        justifyContent: 'flex-end',
+        alignItems: 'flex-end',
+        position: "absolute",
+    },
+    chatButton: {
+        backgroundColor: colors.primary,
+        height: 50,
+        width: 50,
+        borderRadius: 25,
+        alignItems: 'center',
+        justifyContent: 'center',
+        shadowColor: colors.primary,
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: .9,
+        shadowRadius: 8,
+        marginRight: 20,
+        marginBottom: 50,
+    }
+})

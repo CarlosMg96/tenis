@@ -4,6 +4,7 @@ import { PanResponder } from "react-native";
 import Parner from "../screens/parners/Parner"
 import Chat from "../screens/parners/Chat"
 import Pagos from "../screens/parners/Pagos"
+import CardPay from "../components/Partners/CardPay";
 
 const Stack = createStackNavigator();
 
@@ -32,6 +33,11 @@ export default function AnunciosStack() {
                 component={Pagos}
                 options={{ title: "Suscribete" }}
             />
+            {/* <Stack.Screen
+                name="CardPay"
+                component={CardPay}
+                options={{ title: "Suscribete" }}
+            /> */}
         </Stack.Navigator>
     )
 }

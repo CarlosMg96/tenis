@@ -8,7 +8,7 @@ import {  onAuthStateChanged } from "firebase/auth"
 import { collection, onSnapshot, orderBy, query, QuerySnapshot, where } from "firebase/firestore"
 import { db } from '../../utils/firebase';
 import SocioCard from '../../components/Partners/SociosCard';
-import SusPagos from './Pagos';
+
 
 export default function Socio(props) {
     const navigation = useNavigation();
