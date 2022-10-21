@@ -49,27 +49,11 @@ export default function Product({
   const [qrvalue, setQrvalue] = useState(id);
   const [isModalOpen, setIsModalOpen ] = useState(false);
 
-  function FuntionQr() {
-    return Alert.alert("Cupón", `Cupón ${id}`, [
-      {
-        text: "Cancelar",
-        onPress: () => console.log("Cancel Pressed"),
-        style: "Cancelar",
-      },
-      {
-        text: "Usar",
-        onPress: () => {
-          utilizado;
-        },
-      },
-      <QRCode value="http://awesome.link.qr" />,
-    ]);
-  }
-
-  // Esto va en en la descarga osea en promociones
 
   return (
-    <TouchableOpacity onPress={FuntionQr}>
+    <TouchableOpacity onPress={() => setIsModalOpen(!isModalOpen)} >
+    <ModalPromotions   isModalOpen={isModalOpen}
+setIsModalOpen={setIsModalOpen} id={id}/>
       <Card containerStyle={styles.card}>
         <Card.Title style={styles.titulos}>{nombre}</Card.Title>
         <Card.Divider />
@@ -104,9 +88,9 @@ export default function Product({
           </Row>
           <Row>
             <Col>
-            <Button title="Open Modal" onPress={() => setIsModalOpen(!isModalOpen)} />
+            {/* <Button title="Open Modal" onPress={() => setIsModalOpen(!isModalOpen)} />
               <ModalPromotions   isModalOpen={isModalOpen}
-        setIsModalOpen={setIsModalOpen}/>
+        setIsModalOpen={setIsModalOpen} id={id}/> */}
             </Col>
           </Row>
         </Grid>
@@ -135,7 +119,7 @@ const styles = StyleSheet.create({
   marco: {
     backgroundColor: "#f1f1f1",
     margin: 7,
-    borderRadius: 10,
+    borderRadius: 16,
     borderColor: "white",
     borderWidth: 1,
   },
@@ -174,9 +158,9 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   card: {
-    borderRadius: 15,
+    borderRadius: 16,
     backgroundColor: "#fff",
     borderColor: "transparent",
-    borderWidth: 1,
+    borderWidth: 0,
   },
 });

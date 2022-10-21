@@ -39,11 +39,15 @@ export default function SocioCard({
   titular,
   fileM,
   nombreEs,
+  statusSuscribe,
+  montoTP,
+  ultimoPa,
 }) {
   const navigation = useNavigation();
 
   const [tipoP, setTipoP] = useState();
   const [pagoTipo, setPagoTipo ] = useState();
+  
   
   useEffect(()=>{
     setPagoTipo(tipoPago);
@@ -58,6 +62,7 @@ export default function SocioCard({
   // const envio = async()=>{
   //   const status = await SusPagos(pagoTipo, tipoP);  
   // };
+
 
   const handledOnPress = async() => {
     navigation.navigate("Pagos");   
@@ -120,6 +125,29 @@ export default function SocioCard({
             {estado === "Activo" ? <Text style={styles.activo}>{estado}</Text> :
              <Text style={styles.inactivo}>{estado}</Text>}
   
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+            {/* <Text style={styles.titulos}>Estado</Text> */}
+            {statusSuscribe === "Success" ? <Text style={styles.activoS}>Suscrito</Text> :
+             <Text style={styles.inactivoS}>Suscribete</Text>}
+  
+            </Col>
+            <Col style={styles.marco2filas}>
+            <Text style={styles.titulos}>Meses con adeudo</Text>
+            <Text style={styles.descripcion}>{mesAdeudo}{"\n"}</Text>
+            </Col>
+          </Row>
+
+          <Row>
+          <Col style={styles.marco}>
+              <Text style={styles.titulos}>Ultimo Pago</Text>
+              <Text style={styles.descripcion} >Falta parsear la fecha{"\n"}</Text>
+            </Col>
+            <Col style={styles.marco}>
+              <Text style={styles.titulos}>Total Pagado</Text>
+              <Text style={styles.descripcion}>{montoTP}{"\n"}</Text>
             </Col>
           </Row>
 
@@ -287,6 +315,29 @@ const styles = StyleSheet.create({
     marginRight: 60,
     marginVertical:10,
   },
+  activoS: {
+    fontSize: 15,
+    fontWeight: "bold",
+    backgroundColor: "#A0BC32",
+    textAlign: "center",
+    borderRadius: 30,
+    color: "white",
+    marginLeft: 20,
+    marginRight: 20,
+    marginVertical:42,
+  },
+  inactivoS: {
+    fontSize: 15,
+    fontWeight: "bold",
+    backgroundColor: "red",
+    textAlign: "center",
+    borderRadius: 30,
+    color: "white",
+    marginLeft: 20,
+    marginRight: 20,
+    marginVertical:42,
+  },
+
 
   descripcion: {
     fontSize: 15,

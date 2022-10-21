@@ -60,8 +60,8 @@ import React, {
     return (
         <GiftedChat
         messages={messages}
-        showAvatarForEveryMessage={false}
-        showUserAvatar={false}
+        showAvatarForEveryMessage={true}
+        showUserAvatar={true}
         onSend={messages => onSend(messages)}
         messagesContainerStyle={{
           backgroundColor: '#fff'

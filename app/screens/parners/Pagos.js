@@ -9,11 +9,11 @@ import { db } from '../../utils/firebase';
 import CardPay from "../../components/Partners/CardPay"
 
 
-export default function Socio(props) {
+export default function Pagos(props) {
     const navigation = useNavigation();
     const [login, setLogin] = useState(null)
     const [email, setEmail] = useState(null)
-    const [socio, setSocio] = useState([])
+    const [socioP, setSocioP] = useState([])
     const [reloading, setReloading] = useState(true)
 
     useEffect(() => {
@@ -30,7 +30,7 @@ export default function Socio(props) {
    const q = query(refCollections, where("email", "==" ,`${email}`));
 
   const unsubscribe = onSnapshot(q, querySnapshot => {
-     setSocio(
+     setSocioP(
       querySnapshot.docs.map(doc => ({
         id: doc.id,
         file: doc.data().file,
@@ -43,6 +43,9 @@ export default function Socio(props) {
         tipoPago: doc.data().tipoPago,
         titular: doc.data().titular,
         estado: doc.data().estado,
+        telCelular: doc.data().telcelular,
+        statusSuscribe: doc.data().statusSuscribe,
+        montoTP: doc.data().montoTP,
       } 
       ))
      ) 
@@ -51,10 +54,9 @@ export default function Socio(props) {
 return unsubscribe;
   },[reloading])
 
-
     return (
        <ScrollView>
-          {socio[0] ? socio.map(socio => <CardPay key={socio.id} {...socio} />  )
+          {socioP[0] ? socioP.map(socioP => <CardPay key={socioP.id} {...socioP} />  )
          
           :
             <View style={styles.loaderHouses}>

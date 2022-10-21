@@ -56,15 +56,18 @@ export default function Socio(props) {
         fileM: doc.data().fileM,
         nombreEs: doc.data().nombreEs,
         estado: doc.data().estado,
+        montoTP: doc.data().montoTP,
+        statusSuscribe: doc.data().statusSuscribe,
+        ultimoPa: doc.data().ultimoPa,
       } 
       ))
      ) 
     })
     setReloading(false)
-    console.log(socio);
 return unsubscribe;
   },[reloading])
-
+ 
+  //MontoTP es el monto actual total pagado
 
     return (
        <ScrollView>
