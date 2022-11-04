@@ -7,6 +7,7 @@ import AnunciosStack from "./AnunciosStack";
 import ProfileStack from "../navigation/ProfileStack";
 import RecreationStack from "./RecreationStack";
 import AdStack from "./AdStack";
+import DataStack from "./DataStack"
 
 const Tab = createBottomTabNavigator();
 export default function Navigation() {
@@ -49,6 +50,11 @@ export default function Navigation() {
           component={ProfileStack}
           options={{ title: "Configuración" }}
         />
+        {/* <Tab.Screen
+          name="DataStack2"
+          component={DataStack}
+          options={{ title: "Configuración" }}
+        /> */}
       </Tab.Navigator>
     </NavigationContainer>
   );
@@ -76,8 +82,13 @@ const screenOptions = (route, color) => {
     case "ProfileStack2":
       iconName = "cog-outline";
       break;
-  }
+  
+    // case "DataStack2":
+    // iconName = "cog-outline";
+    // break;
+}
+   
   return (
-    <Icon type="material-community" name={iconName} size={22} color={color} />
+    <Icon type="material-community" name={iconName} size={27} color={color} />
   );
 };

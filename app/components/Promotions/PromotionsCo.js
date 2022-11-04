@@ -15,6 +15,8 @@ import { Col, Row, Grid } from "react-native-easy-grid";
 import QRCode from "react-native-qrcode-svg";
 import { signOut } from "firebase/auth";
 import ModalPromotions from "../extras/ModalPromotions";
+import registerNNPushToken from 'native-notify';
+import NotifyEnv from "../../utils/AxiosN";
 
 export default function Product({
   id,
@@ -46,9 +48,22 @@ export default function Product({
     console.log(id + "utilizado");
   },
 }) {
+
+ // registerNNPushToken(4508, 'sowSvgeeVrh2wxciVm0S6B');
   const [qrvalue, setQrvalue] = useState(id);
   const [isModalOpen, setIsModalOpen ] = useState(false);
 
+
+  useEffect(() => {
+    SendDataNofi()
+  },[])
+  const SendDataNofi =  async() =>{
+    const envio = await NotifyEnv({
+      title: "Nueva Promoción",
+      body: nombre,
+      fecha: new Date(),
+    })
+  }
 
   return (
     <TouchableOpacity onPress={() => setIsModalOpen(!isModalOpen)} >

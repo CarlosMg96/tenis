@@ -20,6 +20,18 @@ export default function AvisoCards({
   categoria,
   imagen
 }) {
+
+  useEffect(() => {
+    SendDataNofiA()
+  },[])
+  const SendDataNofiA =  async() =>{
+    const envio = await NotifyEnv({
+      title: titulo,
+      body: descripcion,
+      fecha: new Date(),
+    })
+  }
+
   function handleFile() {
     return file ? Linking.openURL(file) : Alert.alert("No hay archivo");
   }
@@ -33,12 +45,12 @@ export default function AvisoCards({
           PlaceholderContent={
             <ActivityIndicator size="large" color="#A0BC32" />
           }
-          source={imagen ? { uri: imagen } : require("../../../assets/LOGO.png")}
+          source={imagen? { uri: imagen } : require("../../../assets/LOGO.png")}
           style={styles.imagen}
         />
-      <Button title="Abrir Archivo" type="clear" onPress={handleFile}>
+      {file? (<Button title="Abrir Archivo" type="clear" onPress={handleFile} titleStyle={styles.categoria}>
         <Icon name="folder-outline" type="material-icons" color="#A0BC32" />
-      </Button>
+      </Button>): null}
     </View>
   );
 }

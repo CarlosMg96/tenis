@@ -8,9 +8,11 @@ import React, { useEffect, useState } from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { StripeProvider } from "@stripe/stripe-react-native";
 
+
 export default function App(props) {
   const { navigation } = props;
   const [login, setLogin] = useState(null);
+ 
 
   useEffect(() => {
     const auth = getAuth();

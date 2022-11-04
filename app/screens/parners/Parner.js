@@ -58,7 +58,7 @@ export default function Socio(props) {
         estado: doc.data().estado,
         montoTP: doc.data().montoTP,
         statusSuscribe: doc.data().statusSuscribe,
-        ultimoPa: doc.data().ultimoPa,
+        ultimoPa: doc.data().ultimoPa.toDate(),
       } 
       ))
      ) 

@@ -15,6 +15,7 @@ import { db } from '../../utils/firebase';
 import { collection, onSnapshot, orderBy, query } from 'firebase/firestore';
 import PromotionsCo from '../../components/Promotions/PromotionsCo'
 import  Svg, {Path, Defs, Pattern, Use} from 'react-native-svg';
+import NotifyEnv from '../../utils/AxiosN';
 
 export default function Promotions(){
   const [promotionsCo, setPromotionsCo] = useState([]);
@@ -37,8 +38,17 @@ export default function Promotions(){
       }))
      ) 
     })
+    // SendDataNofi()
 return unsubscribe;
   }, [])
+
+  // const SendDataNofi =  async() =>{
+  //   const envio = await NotifyEnv({
+  //     title: "Nueva Promoción añadida",
+  //     body: {PromotionsCo},
+  //     fecha: new Date(),
+  //   })
+  // }
 
   function Svgg() {
     return (

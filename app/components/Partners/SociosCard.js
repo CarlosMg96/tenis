@@ -47,6 +47,7 @@ export default function SocioCard({
 
   const [tipoP, setTipoP] = useState();
   const [pagoTipo, setPagoTipo ] = useState();
+  let ultimoPago = ultimoPa.toString();
   
   
   useEffect(()=>{
@@ -143,7 +144,7 @@ export default function SocioCard({
           <Row>
           <Col style={styles.marco}>
               <Text style={styles.titulos}>Ultimo Pago</Text>
-              <Text style={styles.descripcion} >Falta parsear la fecha{"\n"}</Text>
+              <Text style={styles.descripcion} >{ultimoPago}{"\n"}</Text>
             </Col>
             <Col style={styles.marco}>
               <Text style={styles.titulos}>Total Pagado</Text>
