@@ -17,17 +17,21 @@ import AvisosService from "../../components/Avisos/AvisosCards";
 import ModalAvisos from "../../components/extras/ModalAvisos";
 
 
-export default function Avisos() {
+export default function Avisos({valor}) {
   const [avisos, setAvisos] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isOpcionCategory, setIsOpcionCategory] = useState("Yoga");
   const [category, setCategory] = useState();
+
+  console.log(valor);
  
  
 
   useEffect(() => {
     const refCollections = collection(db, "avisos");
-    const q = query(refCollections, where("categoria", "==" ,`${isOpcionCategory}`));
+   // const q = query(refCollections, where("categoria", "==" ,`${isOpcionCategory}`), where("categoria", "==", "Hotel"));
+   const q = query(refCollections, where("categoria", "==" ,`${isOpcionCategory}`));
+
 
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       setAvisos(
@@ -43,7 +47,7 @@ export default function Avisos() {
       );
     });
     return unsubscribe;
-    HandleOfCategory();
+    //HandleOfCategory();
   }, []);
 //   const informacion = [{avisos:{...avisos.categoria}}]
 // console.log("Lo que necesito esta aquí");
@@ -53,15 +57,15 @@ export default function Avisos() {
         <Text>key={doc.id} {doc.categoria} {console.log(doc.categoria)}</Text>
         setCategory(doc.categoria)
       })} */
-const HandleOfCategory = () => {
-  setCategory(
-    avisos.map((doc) => {
-      key=(doc.id)
-      setIsOpcionCategory(doc.categoria)
-    })
-  )
-}
-console.log(isOpcionCategory)
+// const HandleOfCategory = () => {
+//   setCategory(
+//     avisos.map((doc) => {
+//       key=(doc.id)
+//       setIsOpcionCategory(doc.categoria)
+//     })
+//   )
+// }
+ console.log(isOpcionCategory)
 
   
   return (
@@ -77,7 +81,7 @@ console.log(isOpcionCategory)
         <Text>key={doc.id} {doc.categoria} {console.log(doc.categoria)}</Text>
         setCategory(doc.categoria)
       })} */}
-      <ModalAvisos isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
+      <ModalAvisos isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} isOpcionCategory={isOpcionCategory} />
       {avisos[0] ? (
         avisos.map((avisos) => <AvisosService key={avisos.id} {...avisos} />)
       ) : (

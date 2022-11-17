@@ -7,13 +7,17 @@ import ToggleSwitch from "toggle-switch-react-native";
 export default function ModalAvisos({
   isModalOpen,
   setIsModalOpen,
-  isOpcionMode,
+  isOpcionCategory,
 }) {
+  // Yoga
   const [switch1, setSwitch1] = useState(false);
+  // Restaurant
   const [switch2, setSwitch2] = useState(false);
+  // Hotel
   const [switch3, setSwitch3] = useState(false);
   const [switch4, setSwitch4] = useState(false);
   const [switch5, setSwitch5] = useState(false);
+  const [valor, setValor] = useState("Yoga");
 
   
 
@@ -73,13 +77,16 @@ export default function ModalAvisos({
     marginVertical: 10,
   };
 
-  // const opcionOfSearch = async() => {
-  //   if (isOpcionMode) {
-  //     await Avisos()
-  //   } else {
+  const opcionOfSearch = async() => {
+    if (isOpcionCategory === "Yoga") {
+      await Avisos(valor);
+      setSwitch1(true);
+      setSwitch2(false);
+      setSwitch3(false);
+    } else {
 
-  //   }
-  // }
+    }
+  }
 
   return (
     <>
@@ -92,11 +99,14 @@ export default function ModalAvisos({
               return (
                 <View style={optionContainer} key={index}>
                   <Text style={optionTextStyle}>{option.title}</Text>
-                  {/* <Switch
-                        value={option.value}
-                        onValueChange={option.setSwitch}
-                      /> */}
-                  <ToggleSwitch
+                  <Switch
+                      //   value={option.value}
+                      //   onValueChange={option.setSwitch}
+                      value={option.value}
+                      onValueChange={opcionOfSearch}
+                       />
+
+                  {/* <ToggleSwitch
                     isOn={modalOpcions?.value}
                     onColor="#A0BC32"
                     offColor="gray"
@@ -104,7 +114,7 @@ export default function ModalAvisos({
                     labelStyle={{ color: "black", fontWeight: "900" }}
                     size="medium"
                     onToggle={option.setSwitch}
-                  />
+                  /> */}
                 </View>
               );
             })}
