@@ -7,6 +7,7 @@ import IndexNav from "./app/logged/IndexNav";
 import React, { useEffect, useState } from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { StripeProvider } from "@stripe/stripe-react-native";
+import { auth } from "./app/utils/firebase"
 
 
 export default function App(props) {
@@ -19,6 +20,8 @@ export default function App(props) {
     onAuthStateChanged(auth, (user) => {
       !user ? setLogin(false) : setLogin(true);
     });
+    // console.log("Checar si auth tiene algo")
+    // console.log(auth?.currentUser?.email);
   }, []);
 
   LogBox.ignoreAllLogs(true);

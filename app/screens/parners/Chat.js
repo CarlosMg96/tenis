@@ -23,6 +23,8 @@ import React, {
   export default function Chat() {
     const [messages, setMessages] = useState([]);
     const navigation = useNavigation();
+    let imagen = "https://bysperfeccionoral.com/wp-content/uploads/2020/01/136-1366211_group-of-10-guys-login-user-icon-png.jpg"
+    let photoURL = auth?.currentUser?.photoURL
 
     useLayoutEffect(() => {
 
@@ -60,6 +62,8 @@ import React, {
     return (
         <GiftedChat
         messages={messages}
+        isTyping={false}
+        placeholder={"Escribe aquí el mensaje..."}
         showAvatarForEveryMessage={true}
         showUserAvatar={true}
         onSend={messages => onSend(messages)}
@@ -72,7 +76,7 @@ import React, {
         }}
         user={{
           _id: auth?.currentUser?.email,
-          avatar: auth?.currentUser?.photoURL,
+          avatar: auth?.currentUser?.photoURL? photoURL : imagen,
         }}
       />
     )

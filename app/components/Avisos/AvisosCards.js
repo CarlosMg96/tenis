@@ -11,6 +11,7 @@ import {
 import { Button, Icon } from "react-native-elements";
 import { WebView } from "react-native-webview";
 import { Image } from "react-native-elements";
+import ModalAvisos from "../extras/ModalAvisos";
 
 export default function AvisoCards({
   id,

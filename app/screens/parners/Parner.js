@@ -8,6 +8,7 @@ import {  onAuthStateChanged } from "firebase/auth"
 import { collection, onSnapshot, orderBy, query, QuerySnapshot, where } from "firebase/firestore"
 import { db } from '../../utils/firebase';
 import SocioCard from '../../components/Partners/SociosCard';
+import { auth } from '../../utils/firebase';
 
 
 export default function Socio(props) {
@@ -18,12 +19,7 @@ export default function Socio(props) {
     const [reloading, setReloading] = useState(true)
 
     useEffect(() => {
-    const auth = getAuth()
-    onAuthStateChanged(auth, (user) => {
-      !user ? setLogin(false) : setLogin(true)
-    })
    setEmail(auth.currentUser.email)
-
   }, [])
 
   useLayoutEffect(() =>{
