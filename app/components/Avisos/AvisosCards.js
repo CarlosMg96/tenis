@@ -22,16 +22,16 @@ export default function AvisoCards({
   imagen
 }) {
 
-  useEffect(() => {
-    SendDataNofiA()
-  },[])
-  const SendDataNofiA =  async() =>{
-    const envio = await NotifyEnv({
-      title: titulo,
-      body: descripcion,
-      fecha: new Date(),
-    })
-  }
+  // useEffect(() => {
+  //   SendDataNofiA()
+  // },[])
+  // const SendDataNofiA =  async() =>{
+  //   const envio = await NotifyEnv({
+  //     title: titulo,
+  //     body: descripcion,
+  //     fecha: new Date(),
+  //   })
+  // }
 
   function handleFile() {
     return file ? Linking.openURL(file) : Alert.alert("No hay archivo");

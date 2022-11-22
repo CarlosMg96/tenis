@@ -17,13 +17,15 @@ import AvisosService from "../../components/Avisos/AvisosCards";
 import ModalAvisos from "../../components/extras/ModalAvisos";
 
 
-export default function Avisos({valor}) {
+export default function Avisos({dataRe}) {
   const [avisos, setAvisos] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isOpcionCategory, setIsOpcionCategory] = useState("Yoga");
   const [category, setCategory] = useState();
 
-  console.log(valor);
+//  const dataRe = ({valor}) =>{
+//     setIsOpcionCategory
+//  }
  
  
 

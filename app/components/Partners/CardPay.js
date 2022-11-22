@@ -59,7 +59,7 @@ import {
      }, [])
 
     //ADD localhost address of your server
-    const API_URL = "http://192.168.3.14:3000";
+    const API_URL = "http://192.168.3.42:3000";
     // const API_URL = "http://192.168.0.5:3000";
 
   const [cardDetails, setCardDetails] = useState();
@@ -90,11 +90,14 @@ import {
             console.log(result);
           }
           
+          let uno = 1
+          let fruto = (mesAdeudo-1)
 
           const newUpPago = {
             statusSuscribe: "Success",
             montoTP: result,
-            ultimoPa:new Date(),          
+            ultimoPa:new Date(),
+            mesAdeudo: fruto,          
           };
           console.log(newUpPago);
 
@@ -154,6 +157,33 @@ import {
     //3.Confirm the payment with the card details
   };
 
+  function VistaTargeta(){
+    return(
+      <View>
+         {
+      cuota.map((doc) => {
+        return (
+          <>
+          <Text style={styles.titulos}>Costo de la membresía: ${doc.Familiar}</Text>
+          <CardField
+          postalCodeEnabled={false}
+          placeholder={{ number: "4242 4242 4242 4242" }}
+          cardStyle={styles.cardStyle}
+          style={styles.cardConatainer}
+          onCardChange={(cardDetails) => {
+            setCardDetails(cardDetails);
+            setMontoP(doc.Familiar)
+          }}
+        />
+          </>
+        )
+      })
+     }
+     
+      </View>
+    )
+  }
+
   
     return (
       <View style={styles.container}>
@@ -170,16 +200,34 @@ import {
       <Text style={styles.titulos}>
         De tipo {tipo} {tipoPago}
       </Text>
-      <CardField
-        postalCodeEnabled={false}
-        placeholder={{ number: "4242 4242 4242 4242" }}
-        cardStyle={styles.cardStyle}
-        style={styles.cardConatainer}
-        onCardChange={(cardDetails) => {
-          setCardDetails(cardDetails);
-        }}
-      />
-      <Button
+    
+      {
+      cuota.map((doc) => {
+        return (
+          <>
+          <Text style={styles.titulos}>Costo de la membresía: ${doc.Familiar}</Text>
+         {
+         mesAdeudo != "0" ? (
+          <CardField
+          postalCodeEnabled={false}
+          placeholder={{ number: "4242 4242 4242 4242" }}
+          cardStyle={styles.cardStyle}
+          style={styles.cardConatainer}
+          onCardChange={(cardDetails) => {
+            setCardDetails(cardDetails);
+            setMontoP(doc.Familiar)
+          }}
+        />
+          ): Alert.alert("Estas al corriente", "Felicidades estas al corriente de tus pagos, continua así")
+         }
+          </>
+        )
+      })
+     }
+
+      {
+        mesAdeudo != "0" ? (<>
+        <Button
         onPress={handlePayPress}
         buttonStyle={styles.buttonStyle}
         title="Pagar"
@@ -187,6 +235,9 @@ import {
         backgroundColor={"#fff"}
         // type="outline"
       />
+        </>
+        ): null
+      }
     </View>
     );
   }
